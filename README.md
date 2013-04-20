@@ -1,6 +1,8 @@
 hanja: 한자-한글 변환 라이브러리
 =====
 
+[한자-한글 변환기](http://hanja.suminb.com)에서 사용되는 모듈입니다.
+
 Installation
 ------------
 
