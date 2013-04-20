@@ -47,7 +47,7 @@ class Hangul:
         return ord(ch) >= 0xac00 and ord(ch) <= 0xd7a3
 
 class Hanja:
-    """두음법칙에 관련된 내용은 http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고했음."""
+    """두음법칙에 관련된 내용은 http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고."""
     
     @staticmethod
     def translate_syllable(previous, current):
