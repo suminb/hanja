@@ -5,15 +5,8 @@ import hanja
 
 
 def readme():
-    try:
-        f = open('README.rst')
-        content = f.read()
-        f.close()
-        return content
-    except IOError:
-        pass
-    except OSError:
-        pass
+    with open('README.rst') as f:
+        return f.read()
 
 
 setup(name='hanja',
@@ -25,4 +18,4 @@ setup(name='hanja',
       author_email=hanja.__email__,
       url='http://github.com/suminb/hanja',
       packages=[],
-     )
+)
