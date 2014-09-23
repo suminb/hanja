@@ -25,10 +25,10 @@ def split_hanja(text):
     else:
         ch = text[0]
         bucket = [ch]
-        prev_state = Hanja.is_hanja(ch)
+        prev_state = is_hanja(ch)
 
         for ch in text[1:]:
-            state = Hanja.is_hanja(ch)
+            state = is_hanja(ch)
 
             if prev_state != state:
                 yield ''.join(bucket)
