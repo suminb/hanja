@@ -55,5 +55,9 @@ def is_hangul(ch):
 
 
 def contains_hangul(text):
-    # NOTE: Probably not an ideal solution in terms of performance
-    return reduce(lambda x, y: x or y, map(lambda c: is_hangul(c), text))
+    if isinstance(text, str) or isinstance(text, unicode):
+        # NOTE: Probably not an ideal solution in terms of performance
+        tfs = map(lambda c: is_hangul(c), text)
+        return reduce(lambda x, y: x or y, tfs, False)
+    else:
+        return False

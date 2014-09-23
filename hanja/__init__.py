@@ -2,7 +2,7 @@
 
 __author__ = 'Sumin Byeon'
 __email__ = 'suminb@gmail.com'
-__version__ = '0.10.0'
+__version__ = '0.10.1'
 
 import warnings
 
