@@ -5,8 +5,11 @@ import hanja
 
 
 def readme():
-    with open('README.rst') as f:
-        return f.read()
+    try:
+        with open('README.rst') as f:
+            return f.read()
+    except:
+        return '(Could not read from README.rst)'
 
 
 setup(name='hanja',
