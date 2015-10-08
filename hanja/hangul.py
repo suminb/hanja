@@ -27,7 +27,7 @@ def build(choseong, joongseong, jongseong):
 
 def dooeum(previous, current):
     """두음법칙을 적용하기 위한 함수."""
-    p, c = Hangul.separate(previous), Hangul.separate(current)
+    p, c = separate(previous), separate(current)
     offset = 0
 
     # 한자음 '녀, 뇨, 뉴, 니', '랴, 려, 례, 료, 류, 리'가 단어 첫머리에 올 때
