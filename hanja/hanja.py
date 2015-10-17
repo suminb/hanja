@@ -8,10 +8,7 @@ from hangul import dooeum
 
 def translate_syllable(previous, current):
     if current in hanja_table:
-        if previous in hanja_table:
-            return hanja_table[current]
-        else:
-            return dooeum(previous, hanja_table[current])
+        return dooeum(previous, hanja_table[current])
 
     return current
 
@@ -42,16 +39,23 @@ def split_hanja(text):
 
 
 def translate(text, mode):
-    return ''.join(map(lambda w: translate_word(w, mode),
-        split_hanja(text)))
+    words = list(split_hanja(text))
+    return ''.join(map(lambda w, prev: translate_word(w, prev, mode),
+        words, [None] + words[:-1]))
 
 
-def translate_word(word, mode,
+def translate_word(word, prev, mode,
     format='<span class="hanja">%s</span><span class="hangul">(%s)</span>'):
     """
     :param mode: combination | substitution
     """
-    tw = ''.join(map(translate_syllable, u' '+word[:-1], word))
+    prev_char = prev[-1] if prev else u' '
+    translated = []
+    for c in word:
+        new_char = translate_syllable(prev_char, c)
+        translated.append(new_char)
+        prev_char = new_char
+    tw = ''.join(translated)
 
     if mode == 'combination' and is_hanja(word[0]) == 1:
         return format % (word, tw)
