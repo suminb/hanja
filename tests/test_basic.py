@@ -43,3 +43,13 @@ def test_split_hanja():
     assert corpora[1] == u'은 '
     assert corpora[2] == u'民主共和國'
     assert corpora[3] == u'이다.'
+
+
+def test_translate():
+    assert hanja.translate(u'韓國語', mode='substitution') == u'한국어'
+    assert hanja.translate(u'한국어', mode='substitution') == u'한국어'
+    assert hanja.translate(u'利用해', mode='substitution') == u'이용해'
+    assert hanja.translate(u'連結된', mode='substitution') == u'연결된'
+    assert hanja.translate(u'1800年에', mode='substitution') == u'1800년에'
+    assert hanja.translate(u'그레고리曆', mode='substitution') == u'그레고리력'
+    assert hanja.translate(u'系列', mode='substitution') == u'계열'
