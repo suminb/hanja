@@ -8,10 +8,7 @@ from hangul import dooeum
 
 def translate_syllable(previous, current):
     if current in hanja_table:
-        if previous in hanja_table or previous.isdigit():
-            return hanja_table[current]
-        else:
-            return dooeum(previous, hanja_table[current])
+        return dooeum(previous, hanja_table[current])
 
     return current
 
@@ -53,7 +50,12 @@ def translate_word(word, prev, mode,
     :param mode: combination | substitution
     """
     prev_char = prev[-1] if prev else u' '
-    tw = ''.join(map(translate_syllable, prev_char+word[:-1], word))
+    translated = []
+    for c in word:
+        new_char = translate_syllable(prev_char, c)
+        translated.append(new_char)
+        prev_char = new_char
+    tw = ''.join(translated)
 
     if mode == 'combination' and is_hanja(word[0]) == 1:
         return format % (word, tw)
