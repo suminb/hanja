@@ -54,7 +54,7 @@ def dooeum(previous, current):
     elif current_head in (u'라', u'래', u'로', u'뢰', u'루', u'르'):
         offset = -3
 
-    return build(c[0]+offset, c[1], c[2])
+    return build(c[0] + offset, c[1], c[2])
 
 
 def is_hangul(ch):

@@ -41,11 +41,12 @@ def split_hanja(text):
 def translate(text, mode):
     words = list(split_hanja(text))
     return ''.join(map(lambda w, prev: translate_word(w, prev, mode),
-        words, [None] + words[:-1]))
+                   words, [None] + words[:-1]))
 
 
 def translate_word(word, prev, mode,
-    format='<span class="hanja">%s</span><span class="hangul">(%s)</span>'):
+                   format='<span class="hanja">%s</span><span class="hangul">'
+                          '(%s)</span>'):
     """
     :param mode: combination | substitution
     """
