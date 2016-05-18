@@ -3,10 +3,12 @@ sudo: false
 
 python:
   - "2.7"
+  - "3.5"
   - "pypy"
 
 install:
-  - pip install -r requirements.txt --use-mirrors
+  - pip install -r requirements.txt
+  - pip install -e .
 
 script:
   - export PYTHONPATH=$PYTHONPATH:.
