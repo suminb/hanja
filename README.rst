@@ -20,7 +20,8 @@ Usage
 필요한 모듈 import 하기
 ```````````````````````
 
->>> from hanja import hanja, hangul
+>>> import hanja
+>>> from hanja import hangul
 
 한글 초성, 중성, 종성 분리
 ``````````````````````````
