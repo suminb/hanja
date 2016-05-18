@@ -7,8 +7,9 @@ def separate(ch):
     """한글 자모 분리. 주어진 한글 한 글자의 초성, 중성 초성을 반환함."""
     uindex = ord(ch) - 0xac00
     jongseong = uindex % 28
-    joongseong = ((uindex - jongseong) / 28) % 21
-    choseong = ((uindex - jongseong) / 28) / 21
+    # NOTE: Force integer-divisions
+    joongseong = ((uindex - jongseong) // 28) % 21
+    choseong = ((uindex - jongseong) // 28) // 21
 
     return (choseong, joongseong, jongseong)
 
