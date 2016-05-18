@@ -2,8 +2,8 @@
 """두음법칙에 관련된 내용은
 http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고."""
 
-from pairs import table as hanja_table
-from hangul import dooeum
+from hanja.pairs import table as hanja_table
+from hanja.hangul import dooeum
 
 
 def translate_syllable(previous, current):

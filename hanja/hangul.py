@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from __init__ import deprecated
+from hanja import deprecated
 
 
 def separate(ch):
