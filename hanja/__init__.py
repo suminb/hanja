@@ -6,10 +6,9 @@ http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고.
 import warnings
 
 
-
 __author__ = 'Sumin Byeon'
 __email__ = 'suminb@gmail.com'
-__version__ = '0.10.3'
+__version__ = '0.11.0'
 
 
 # Copied from https://wiki.python.org/moin/PythonDecoratorLibrary
