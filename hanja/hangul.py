@@ -1,14 +1,15 @@
 # -*- coding: utf8 -*-
 
-from __init__ import deprecated
+from hanja import deprecated
 
 
 def separate(ch):
     """한글 자모 분리. 주어진 한글 한 글자의 초성, 중성 초성을 반환함."""
     uindex = ord(ch) - 0xac00
     jongseong = uindex % 28
-    joongseong = ((uindex - jongseong) / 28) % 21
-    choseong = ((uindex - jongseong) / 28) / 21
+    # NOTE: Force integer-divisions
+    joongseong = ((uindex - jongseong) // 28) % 21
+    choseong = ((uindex - jongseong) // 28) // 21
 
     return (choseong, joongseong, jongseong)
 
@@ -22,7 +23,13 @@ def build(choseong, joongseong, jongseong):
     """초성, 중성, 종성을 조합하여 완성형 한 글자를 만듦. 'choseong',
     'joongseong', 'jongseong' are offsets. For example, 'ㄱ' is 0, 'ㄲ' is 1,
     'ㄴ' is 2, and so on and so fourth."""
-    return unichr(((((choseong) * 21) + joongseong) * 28) + jongseong + 0xac00)
+    code = int(((((choseong) * 21) + joongseong) * 28) + jongseong + 0xac00)
+    try:
+        # Python 2.x
+        return unichr(code)
+    except NameError:
+        # Python 3.x
+        return chr(code)
 
 
 def dooeum(previous, current):
@@ -47,7 +54,7 @@ def dooeum(previous, current):
     elif current_head in (u'라', u'래', u'로', u'뢰', u'루', u'르'):
         offset = -3
 
-    return build(c[0]+offset, c[1], c[2])
+    return build(c[0] + offset, c[1], c[2])
 
 
 def is_hangul(ch):
@@ -61,6 +68,7 @@ def contains_hangul(text):
     if isinstance(text, str) or isinstance(text, unicode):
         # NOTE: Probably not an ideal solution in terms of performance
         tfs = map(lambda c: is_hangul(c), text)
-        return reduce(lambda x, y: x or y, tfs, False)
-    else:
-        return False
+        for tf in tfs:
+            if tf:
+                return True
+    return False

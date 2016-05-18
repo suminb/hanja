@@ -1,6 +1,8 @@
 # -*- coding: utf8 -*-
-import pytest
-from hanja import hangul, hanja
+from __future__ import absolute_import
+
+import hanja
+from hanja import hangul
 
 
 def test_separation():
