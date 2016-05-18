@@ -23,7 +23,13 @@ def build(choseong, joongseong, jongseong):
     """초성, 중성, 종성을 조합하여 완성형 한 글자를 만듦. 'choseong',
     'joongseong', 'jongseong' are offsets. For example, 'ㄱ' is 0, 'ㄲ' is 1,
     'ㄴ' is 2, and so on and so fourth."""
-    return unichr(((((choseong) * 21) + joongseong) * 28) + jongseong + 0xac00)
+    code = int(((((choseong) * 21) + joongseong) * 28) + jongseong + 0xac00)
+    try:
+        # Python 2.x
+        return unichr(code)
+    except NameError:
+        # Python 3.x
+        return chr(code)
 
 
 def dooeum(previous, current):
