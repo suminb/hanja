@@ -3,7 +3,10 @@
 http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고.
 """
 
+import os
 import warnings
+
+import yaml
 
 
 __author__ = 'Sumin Byeon'
@@ -26,8 +29,18 @@ def deprecated(func):
     return new_func
 
 
+def load_table(filename):
+    try:
+        from yaml import CLoader as Loader
+    except ImportError:
+        from yaml import BaseLoader as Loader
+    with open(filename) as fin:
+        table = yaml.load(fin.read(), Loader=Loader)
+
+    return table
+
+
 def translate_syllable(previous, current):
-    from hanja.pairs import table as hanja_table
     from hanja.hangul import dooeum
     if current in hanja_table:
         return dooeum(previous, hanja_table[current])
@@ -88,5 +101,8 @@ def translate_word(word, prev, mode,
 
 def is_hanja(ch):
     """Determines if a given character ``ch`` is a Chinese character."""
-    from hanja.pairs import table as hanja_table
     return ch in hanja_table
+
+
+basepath=os.path.abspath(os.path.dirname(__file__))
+hanja_table = load_table(os.path.join(basepath, 'table.yml'))
