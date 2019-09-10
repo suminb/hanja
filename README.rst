@@ -1,9 +1,16 @@
 hanja: 한자-한글 변환 라이브러리
 ================================
 
+|Travis CI| |Coveralls|
+
 `한자-한글 변환기`__\ 에서 사용되는 모듈입니다.
 
 __ http://hanja.suminb.com
+
+.. |Travis CI| image:: https://travis-ci.org/suminb/hanja.svg?branch=develop
+  :target: https://travis-ci.org/suminb/hanja
+.. |Coveralls| image:: https://coveralls.io/repos/github/suminb/hanja/badge.svg?branch=master
+  :target: https://coveralls.io/github/suminb/hanja?branch=develop
 
 
 Installation
@@ -20,7 +27,8 @@ Usage
 필요한 모듈 import 하기
 ```````````````````````
 
->>> from hanja import hanja, hangul
+>>> import hanja
+>>> from hanja import hangul
 
 한글 초성, 중성, 종성 분리
 ``````````````````````````
