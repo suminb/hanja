@@ -11,7 +11,7 @@ import yaml
 
 __author__ = 'Sumin Byeon'
 __email__ = 'suminb@gmail.com'
-__version__ = '0.12.2'
+__version__ = '0.12.3'
 
 
 # Copied from https://wiki.python.org/moin/PythonDecoratorLibrary
