@@ -13,6 +13,15 @@ __ http://hanja.suminb.com
   :target: https://coveralls.io/github/suminb/hanja?branch=develop
 
 
+Improve Hanja Library
+---------------------
+
+사용 하시다가 빠진 한자 또는 틀린 독음을 발견하시면 `이 링크
+<https://docs.google.com/forms/d/e/1FAIpQLScAtw6ylAhy1t0hMn5K25ZbN1vSNPlRdUtebS9PVtKeLQRfvw/viewform>`_\
+를 통해 제보해주세요. 확인 후 반영하도록 하겠습니다. GitHub을 통해 직접 PR을
+보내주셔도 좋습니다.
+
+
 Installation
 ------------
 
