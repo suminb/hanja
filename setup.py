@@ -13,7 +13,7 @@ def readme():
 
 
 setup(name='hanja',
-      py_modules=['hanja', 'hanja.pairs', 'hanja.hangul'],
+      py_modules=['hanja/__init__', 'hanja.hangul'],
       version=hanja.__version__,
       description='Hangul & Hanja library',
       long_description=readme(),
