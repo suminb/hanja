@@ -19,6 +19,6 @@ setup(name='hanja',
       long_description=readme(),
       author=hanja.__author__,
       author_email=hanja.__email__,
-      url='http://github.com/suminb/hanja',
-      packages=[],
+      url='https://github.com/suminb/hanja',
+      packages=['hanja'],
 )
