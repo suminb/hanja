@@ -101,17 +101,17 @@ def translate_word(
     :param mode: combination | substitution
     """
     prev_char = prev[-1] if prev else u" "
-    translated = []
+    buf = []
     for c in word:
         new_char = translate_syllable(prev_char, c)
-        translated.append(new_char)
+        buf.append(new_char)
         prev_char = new_char
-    tw = "".join(translated)
+    translated = "".join(buf)
 
     if mode == "combination" and is_hanja(word[0]):
-        return format % (word, tw)
+        return format % (word, translated)
     else:
-        return tw
+        return translated
 
 
 def is_hanja(ch):
