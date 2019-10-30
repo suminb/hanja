@@ -61,16 +61,16 @@ def test_translate_substitution_mode():
 def test_translate_combination_mode():
     mode = "combination"
     assert (
-        hanja.translate("韓國語", mode=mode)
-        == '<span class="hanja">韓國語</span><span class="hangul">(한국어)</span>'
+        hanja.translate(u"韓國語", mode=mode)
+        == u'<span class="hanja">韓國語</span><span class="hangul">(한국어)</span>'
     )
     assert (
-        hanja.translate("利用해", mode=mode)
-        == '<span class="hanja">利用</span><span class="hangul">(이용)</span>해'
+        hanja.translate(u"利用해", mode=mode)
+        == u'<span class="hanja">利用</span><span class="hangul">(이용)</span>해'
     )
     assert (
-        hanja.translate("大韓民國은 民主共和國이다.", mode=mode)
-        == '<span class="hanja">大韓民國</span><span class="hangul">(대한민국)'
+        hanja.translate(u"大韓民國은 民主共和國이다.", mode=mode)
+        == u'<span class="hanja">大韓民國</span><span class="hangul">(대한민국)'
         '</span>은 <span class="hanja">民主共和國</span><span class="hangul">'
         "(민주공화국)</span>이다."
     )
