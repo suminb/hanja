@@ -49,6 +49,13 @@ def test_split_hanja():
     assert corpora[3] == u"이다."
 
 
+def test_is_valid_mode():
+    assert hanja.is_valid_mode("substitution")
+    assert hanja.is_valid_mode("combination-text")
+    assert hanja.is_valid_mode("combination-html")
+    assert not hanja.is_valid_mode("combination-avro")
+
+
 def test_translate_substitution_mode():
     mode = "substitution"
     assert hanja.translate(u"韓國語", mode=mode) == u"한국어"

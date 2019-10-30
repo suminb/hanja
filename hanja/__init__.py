@@ -81,12 +81,15 @@ def split_hanja(text):
 
 
 def is_valid_mode(mode):
-    return mode in (
-        "substitution",
-        "combination-text",
-        "combination-html",
-        "combination",
-    )
+    if mode in ("substitution", "combination-text", "combination-html"):
+        return True
+    elif mode == "combination":
+        warnings.warn(
+            "Translation mode 'combination' has been deprecated since 0.13.0. Use 'combination-html' instead."
+        )
+        return True
+    else:
+        return False
 
 
 def get_format_string(mode, word):
