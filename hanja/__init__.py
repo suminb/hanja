@@ -108,7 +108,7 @@ def translate_word(
         prev_char = new_char
     tw = "".join(translated)
 
-    if mode == "combination" and is_hanja(word[0]) == 1:
+    if mode == "combination" and is_hanja(word[0]):
         return format % (word, tw)
     else:
         return tw
