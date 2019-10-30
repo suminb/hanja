@@ -85,12 +85,17 @@ def get_format_string(mode, word):
     :param mode: combination | substitution
     """
     if mode == "substitution":
-        return "{translated}"
-    elif mode == "combination":
+        return u"{translated}"
+    elif mode == "combination-text":
         if is_hanja(word[0]):
-            return '<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+            return u"{word}({translated})"
         else:
-            return "{translated}"
+            return u"{translated}"
+    elif mode in ("combination-html", "combination"):
+        if is_hanja(word[0]):
+            return u'<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+        else:
+            return u"{translated}"
     else:
         raise ValueError("Unsupported translation mode: " + mode)
 

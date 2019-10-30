@@ -1,6 +1,8 @@
 # -*- coding: utf8 -*-
 from __future__ import absolute_import
 
+import pytest
+
 import hanja
 from hanja import hangul
 
@@ -58,8 +60,17 @@ def test_translate_substitution_mode():
     assert hanja.translate(u"系列", mode=mode) == u"계열"
 
 
-def test_translate_combination_mode():
-    mode = "combination"
+def test_translate_combination_text_mode():
+    mode = "combination-text"
+    assert hanja.translate(u"韓國語", mode=mode) == u"韓國語(한국어)"
+    assert hanja.translate(u"利用해", mode=mode) == u"利用(이용)해"
+    assert (
+        hanja.translate(u"大韓民國은 民主共和國이다.", mode=mode) == u"大韓民國(대한민국)은 民主共和國(민주공화국)이다."
+    )
+
+
+@pytest.mark.parametrize('mode', ["combination-html", "combination"])
+def test_translate_combination_html_mode(mode):
     assert (
         hanja.translate(u"韓國語", mode=mode)
         == u'<span class="hanja">韓國語</span><span class="hangul">(한국어)</span>'
@@ -71,6 +82,6 @@ def test_translate_combination_mode():
     assert (
         hanja.translate(u"大韓民國은 民主共和國이다.", mode=mode)
         == u'<span class="hanja">大韓民國</span><span class="hangul">(대한민국)'
-        '</span>은 <span class="hanja">民主共和國</span><span class="hangul">'
-        "(민주공화국)</span>이다."
+        u'</span>은 <span class="hanja">民主共和國</span><span class="hangul">'
+        u"(민주공화국)</span>이다."
     )
