@@ -34,6 +34,7 @@ def deprecated(func):
 
 
 def load_table(filename):
+    """Loads the Hanja table."""
     try:
         from yaml import CLoader as Loader
     except ImportError:
@@ -45,6 +46,7 @@ def load_table(filename):
 
 
 def translate_syllable(previous, current):
+    """Translates a single syllable."""
     from hanja.hangul import dooeum
 
     if current in hanja_table:
@@ -79,6 +81,7 @@ def split_hanja(text):
 
 
 def translate(text, mode):
+    """Translates entire text."""
     words = list(split_hanja(text))
     return "".join(
         map(lambda w, prev: translate_word(w, prev, mode), words, [None] + words[:-1])
@@ -91,7 +94,10 @@ def translate_word(
     mode,
     format='<span class="hanja">%s</span><span class="hangul">' "(%s)</span>",
 ):
-    """
+    """Translates a single word.
+
+    :param word: Word to be translated
+    :param prev: Preceeding word
     :param mode: combination | substitution
     """
     prev_char = prev[-1] if prev else u" "
