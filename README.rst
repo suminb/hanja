@@ -42,14 +42,14 @@ Usage
 한글 초성, 중성, 종성 분리
 ``````````````````````````
 
->>> hangul.separate(u'가')
+>>> hangul.separate('가')
 (0, 0, 0)
->>> hangul.separate(u'까')
+>>> hangul.separate('까')
 (1, 0, 0)
 
 튜플(tuple)의 마지막 원소가 0이면 종성이 없는 글자라고 판단할 수 있다.
 
->>> hangul.separate(u'한')
+>>> hangul.separate('한')
 (18, 0, 4)
 
 'ㅎ'은 19번째 자음, 'ㅏ'는 첫번째 모음, 'ㄴ'은 다섯번째 자음이라는 것을 알 수 있다.
@@ -59,17 +59,15 @@ Usage
 ``````````````````````````````````````````
 
 >>> hangul.build(0, 0, 0)
-u'\uac00'
->>> print Hangul.build(0, 0, 0)
-가
+'가'
 
 
 주어진 글자가 한글인지의 여부를 판별
 ````````````````````````````````````
 
->>> hangul.is_hangul(u'가')
+>>> hangul.is_hangul('가')
 True
->>> hangul.is_hangul(u'a')
+>>> hangul.is_hangul('a')
 False
 
 
@@ -78,19 +76,19 @@ False
 
 리스트가 아닌 제네레이터(generator)를 반환한다.
 
->>> '|'.join(hanja.split_hanja(u'大韓民國은 民主共和國이다.'))
+>>> '|'.join(hanja.split_hanja('大韓民國은 民主共和國이다.'))
 大韓民國|은 |民主共和國|이다.
 
->>> [x for x in hanja.split_hanja(u'大韓民國은 民主共和國이다.')]
-[u'\u5927\u97d3\u6c11\u570b', u'\uc740 ', u'\u6c11\u4e3b\u5171\u548c\u570b', u'\uc774\ub2e4.']
+>>> [x for x in hanja.split_hanja('大韓民國은 民主共和國이다.')]
+['大韓民國', '은 ', '民主共和國', '이다.']
 
 주어진 글자가 한자인지의 여부를 판별
 ````````````````````````````````````
 
->>> hanja.is_hanja(u'韓')
+>>> hanja.is_hanja('韓')
 True
 
->>> hanja.is_hanja(u'한')
+>>> hanja.is_hanja('한')
 False
 
 문장 변환
@@ -98,10 +96,15 @@ False
 
 치환 모드 변환:
 
->>> hanja.translate(u'大韓民國은 民主共和國이다.', 'substitution')
-대한민국은 민주공화국이다.
+>>> hanja.translate('大韓民國은 民主共和國이다.', 'substitution')
+'대한민국은 민주공화국이다.'
 
-혼용 모드 변환:
+혼용 모드 변환 (text):
 
->>> hanja.translate(u'大韓民國은 民主共和國이다.', 'combination')
-<span class="hanja">大韓民國</span><span class="hangul">(대한민국)</span>은 <span class="hanja">民主共和國</span><span class="hangul">(민주공화국)</span>이다.
+>>> hanja.translate('大韓民國은 民主共和國이다.', 'combination-text')
+'大韓民國(대한민국)은 民主共和國(민주공화국)이다.'
+
+혼용 모드 변환 (HTML):
+
+>>> hanja.translate(u'大韓民國은 民主共和國이다.', 'combination-html')
+'<span class="hanja">大韓民國</span><span class="hangul">(대한민국)</span>은 <span class="hanja">民主共和國</span><span class="hangul">(민주공화국)</span>이다.'

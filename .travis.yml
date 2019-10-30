@@ -19,7 +19,7 @@ script:
     if [ -x "$(command -v black)" ]; then
       black --check .
     fi
-  - py.test tests --cov hanja --durations=10
+  - py.test -v tests --cov hanja --cov-report term-missing
 
 after_success:
   - coveralls
