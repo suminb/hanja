@@ -92,3 +92,8 @@ def test_translate_combination_html_mode(mode):
         u'</span>은 <span class="hanja">民主共和國</span><span class="hangul">'
         u"(민주공화국)</span>이다."
     )
+
+
+def test_translate_with_invalid_mode():
+    with pytest.raises(ValueError):
+        hanja.translate("Some text", mode="invalid")
