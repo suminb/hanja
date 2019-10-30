@@ -80,24 +80,28 @@ def split_hanja(text):
         yield "".join(bucket)
 
 
+def is_valid_mode(mode):
+    return mode in (
+        "substitution",
+        "combination-text",
+        "combination-html",
+        "combination",
+    )
+
+
 def get_format_string(mode, word):
     """
-    :param mode: combination | substitution
+    :param mode: substitution | combination-text | combination-html
     """
-    if mode == "substitution":
-        return u"{translated}"
-    elif mode == "combination-text":
-        if is_hanja(word[0]):
-            return u"{word}({translated})"
-        else:
-            return u"{translated}"
-    elif mode in ("combination-html", "combination"):
-        if is_hanja(word[0]):
-            return u'<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
-        else:
-            return u"{translated}"
-    else:
+    if not is_valid_mode(mode):
         raise ValueError("Unsupported translation mode: " + mode)
+
+    if mode == "combination-text" and is_hanja(word[0]):
+        return u"{word}({translated})"
+    elif mode in ("combination-html", "combination") and is_hanja(word[0]):
+        return u'<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+    else:
+        return u"{translated}"
 
 
 def translate(text, mode):

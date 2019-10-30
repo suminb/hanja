@@ -69,7 +69,7 @@ def test_translate_combination_text_mode():
     )
 
 
-@pytest.mark.parametrize('mode', ["combination-html", "combination"])
+@pytest.mark.parametrize("mode", ["combination-html", "combination"])
 def test_translate_combination_html_mode(mode):
     assert (
         hanja.translate(u"韓國語", mode=mode)
