@@ -9,20 +9,24 @@ import warnings
 import yaml
 
 
-__author__ = 'Sumin Byeon'
-__email__ = 'suminb@gmail.com'
-__version__ = '0.12.3'
+__author__ = "Sumin Byeon"
+__email__ = "suminb@gmail.com"
+__version__ = "0.13.0"
 
 
 # Copied from https://wiki.python.org/moin/PythonDecoratorLibrary
 def deprecated(func):
-    '''This is a decorator which can be used to mark functions
+    """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
-    when the function is used.'''
+    when the function is used."""
+
     def new_func(*args, **kwargs):
-        warnings.warn("Call to deprecated function {}.".format(func.__name__),
-                      category=DeprecationWarning)
+        warnings.warn(
+            "Call to deprecated function {}.".format(func.__name__),
+            category=DeprecationWarning,
+        )
         return func(*args, **kwargs)
+
     new_func.__name__ = func.__name__
     new_func.__doc__ = func.__doc__
     new_func.__dict__.update(func.__dict__)
@@ -30,6 +34,7 @@ def deprecated(func):
 
 
 def load_table(filename):
+    """Loads the Hanja table."""
     try:
         from yaml import CLoader as Loader
     except ImportError:
@@ -41,7 +46,9 @@ def load_table(filename):
 
 
 def translate_syllable(previous, current):
+    """Translates a single syllable."""
     from hanja.hangul import dooeum
+
     if current in hanja_table:
         return dooeum(previous, hanja_table[current])
 
@@ -63,40 +70,70 @@ def split_hanja(text):
             state = is_hanja(ch)
 
             if prev_state != state:
-                yield ''.join(bucket)
+                yield "".join(bucket)
                 bucket = [ch]
             else:
                 bucket.append(ch)
 
             prev_state = state
 
-        yield ''.join(bucket)
+        yield "".join(bucket)
+
+
+def is_valid_mode(mode):
+    if mode in ("substitution", "combination-text", "combination-html"):
+        return True
+    elif mode == "combination":
+        warnings.warn(
+            "Translation mode 'combination' has been deprecated since 0.13.0. Use 'combination-html' instead."
+        )
+        return True
+    else:
+        return False
+
+
+def get_format_string(mode, word):
+    """
+    :param mode: substitution | combination-text | combination-html
+    """
+    if not is_valid_mode(mode):
+        raise ValueError("Unsupported translation mode: " + mode)
+
+    if mode == "combination-text" and is_hanja(word[0]):
+        return u"{word}({translated})"
+    elif mode in ("combination-html", "combination") and is_hanja(word[0]):
+        return u'<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+    else:
+        return u"{translated}"
 
 
 def translate(text, mode):
+    """Translates entire text."""
     words = list(split_hanja(text))
-    return ''.join(map(lambda w, prev: translate_word(w, prev, mode),
-                   words, [None] + words[:-1]))
+    return "".join(
+        map(
+            lambda w, prev: translate_word(w, prev, get_format_string(mode, w)),
+            words,
+            [None] + words[:-1],
+        )
+    )
 
 
-def translate_word(word, prev, mode,
-                   format='<span class="hanja">%s</span><span class="hangul">'
-                          '(%s)</span>'):
+def translate_word(word, prev, format_string):
+    """Translates a single word.
+
+    :param word: Word to be translated
+    :param prev: Preceeding word
     """
-    :param mode: combination | substitution
-    """
-    prev_char = prev[-1] if prev else u' '
-    translated = []
+    prev_char = prev[-1] if prev else u" "
+    buf = []
     for c in word:
         new_char = translate_syllable(prev_char, c)
-        translated.append(new_char)
+        buf.append(new_char)
         prev_char = new_char
-    tw = ''.join(translated)
+    translated = "".join(buf)
 
-    if mode == 'combination' and is_hanja(word[0]) == 1:
-        return format % (word, tw)
-    else:
-        return tw
+    return format_string.format(word=word, translated=translated)
 
 
 def is_hanja(ch):
@@ -104,5 +141,5 @@ def is_hanja(ch):
     return ch in hanja_table
 
 
-basepath=os.path.abspath(os.path.dirname(__file__))
-hanja_table = load_table(os.path.join(basepath, 'table.yml'))
+basepath = os.path.abspath(os.path.dirname(__file__))
+hanja_table = load_table(os.path.join(basepath, "table.yml"))

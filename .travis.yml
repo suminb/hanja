@@ -10,11 +10,16 @@ python:
 
 install:
   - pip install -r requirements.txt
+  - pip install "black; python_version >= '3.6'"
   - pip install -e .
 
 script:
   - export PYTHONPATH=$PYTHONPATH:.
-  - py.test tests --cov hanja --durations=10
+  - |
+    if [ -x "$(command -v black)" ]; then
+      black --check .
+    fi
+  - py.test -v tests --cov hanja --cov-report term-missing
 
 after_success:
   - coveralls
