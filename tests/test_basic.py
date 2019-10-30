@@ -17,25 +17,25 @@ def test_build():
 
 
 def test_is_hangul():
-    assert hangul.is_hangul(u"한") == True
-    assert hangul.is_hangul("A") == False
-    assert hangul.is_hangul("1") == False
-    assert hangul.is_hangul(None) == False
+    assert hangul.is_hangul(u"한")
+    assert not hangul.is_hangul("A")
+    assert not hangul.is_hangul("1")
+    assert not hangul.is_hangul(None)
 
 
 def test_contains_hangul():
-    assert hangul.contains_hangul(u"한국어") == True
-    assert hangul.contains_hangul(u"한ABC국어") == True
-    assert hangul.contains_hangul(u"Yo, what's up bro?") == False
-    assert hangul.contains_hangul(u"1234567890") == False
+    assert hangul.contains_hangul(u"한국어")
+    assert hangul.contains_hangul(u"한ABC국어")
+    assert not hangul.contains_hangul(u"Yo, what's up bro?")
+    assert not hangul.contains_hangul(u"1234567890")
 
 
 def test_is_hanja():
-    assert hanja.is_hanja(u"한") == False
-    assert hanja.is_hanja("A") == False
-    assert hanja.is_hanja("1") == False
-    assert hanja.is_hanja(None) == False
-    assert hanja.is_hanja(u"韓") == True
+    assert not hanja.is_hanja(u"한")
+    assert not hanja.is_hanja("A")
+    assert not hanja.is_hanja("1")
+    assert not hanja.is_hanja(None)
+    assert hanja.is_hanja(u"韓")
 
 
 def test_split_hanja():
