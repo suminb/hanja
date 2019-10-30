@@ -80,25 +80,38 @@ def split_hanja(text):
         yield "".join(bucket)
 
 
+def get_format_string(mode, word):
+    """
+    :param mode: combination | substitution
+    """
+    if mode == "substitution":
+        return "{translated}"
+    elif mode == "combination":
+        if is_hanja(word[0]):
+            return '<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+        else:
+            return "{translated}"
+    else:
+        raise ValueError("Unsupported translation mode: " + mode)
+
+
 def translate(text, mode):
     """Translates entire text."""
     words = list(split_hanja(text))
     return "".join(
-        map(lambda w, prev: translate_word(w, prev, mode), words, [None] + words[:-1])
+        map(
+            lambda w, prev: translate_word(w, prev, get_format_string(mode, w)),
+            words,
+            [None] + words[:-1],
+        )
     )
 
 
-def translate_word(
-    word,
-    prev,
-    mode,
-    format='<span class="hanja">%s</span><span class="hangul">' "(%s)</span>",
-):
+def translate_word(word, prev, format_string):
     """Translates a single word.
 
     :param word: Word to be translated
     :param prev: Preceeding word
-    :param mode: combination | substitution
     """
     prev_char = prev[-1] if prev else u" "
     buf = []
@@ -108,10 +121,7 @@ def translate_word(
         prev_char = new_char
     translated = "".join(buf)
 
-    if mode == "combination" and is_hanja(word[0]):
-        return format % (word, translated)
-    else:
-        return translated
+    return format_string.format(word=word, translated=translated)
 
 
 def is_hanja(ch):
