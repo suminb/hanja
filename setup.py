@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
+from pkg_resources import parse_requirements
+
 import hanja
 
 
@@ -11,6 +13,9 @@ def readme():
     except:
         return "(Could not read from README.rst)"
 
+
+with open("requirements.txt") as f:
+    install_requires = [str(x) for x in parse_requirements(f.read())]
 
 setup(
     name="hanja",
@@ -24,4 +29,5 @@ setup(
     packages=["hanja"],
     package_data={"hanja": ["table.yml"]},
     include_package_data=True,
+    install_requires=install_requires,
 )
