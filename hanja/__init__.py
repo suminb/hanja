@@ -11,7 +11,7 @@ from hanja.impl import is_hanja, is_valid_mode, split_hanja, translate
 __all__ = ["is_hanja", "is_valid_mode", "split_hanja", "translate"]
 __author__ = "Sumin Byeon"
 __email__ = "suminb@gmail.com"
-__version__ = "0.13.0"
+__version__ = "0.13.1"
 
 
 # Copied from https://wiki.python.org/moin/PythonDecoratorLibrary
