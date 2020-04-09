@@ -26,8 +26,8 @@ setup(
     author=hanja.__author__,
     author_email=hanja.__email__,
     url="https://github.com/suminb/hanja",
-    packages=["hanja"],
-    package_data={"hanja": ["table.yml"]},
+    packages=["", "hanja"],
+    package_data={"": ["requirements.txt"], "hanja": ["table.yml"]},
     include_package_data=True,
     install_requires=install_requires,
 )
