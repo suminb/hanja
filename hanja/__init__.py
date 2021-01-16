@@ -5,8 +5,6 @@ http://ko.wikipedia.org/wiki/%EB%91%90%EC%9D%8C_%EB%B2%95%EC%B9%99 를 참고.
 
 import warnings
 
-from hanja.impl import is_hanja, is_valid_mode, split_hanja, translate
-
 
 __all__ = ["is_hanja", "is_valid_mode", "split_hanja", "translate"]
 __author__ = "Sumin Byeon"
@@ -31,3 +29,23 @@ def deprecated(func):
     new_func.__doc__ = func.__doc__
     new_func.__dict__.update(func.__dict__)
     return new_func
+
+
+def lazily_import(import_string):
+    import_path, func_name = import_string.split(":")
+
+    def load_and_call(*args, **kwargs):
+        mod = __import__(import_path)
+        for mod_name in import_path.split(".")[1:]:
+            mod = getattr(mod, mod_name)
+        func = getattr(mod, func_name)
+        globals()[func_name] = func
+        return func(*args, **kwargs)
+
+    globals()[func_name] = load_and_call
+
+
+lazily_import("hanja.impl:is_hanja")
+lazily_import("hanja.impl:is_valid_mode")
+lazily_import("hanja.impl:split_hanja")
+lazily_import("hanja.impl:translate")
