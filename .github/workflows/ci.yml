@@ -21,7 +21,7 @@ jobs:
     - name: Lint with black and mypy
       run: |
         black --check .
-        mypy --ignore-missing-imports finance
+        mypy --ignore-missing-imports hanja
     - name: Test with pytest
       run: |
         pytest -v tests --cov hanja --cov-report term-missing
