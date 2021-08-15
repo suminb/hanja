@@ -22,6 +22,7 @@ jobs:
     - name: Lint with black and mypy
       run: |
         black --check .
+        mypy --install-types --non-interactive hanja
         mypy --ignore-missing-imports hanja
     - name: Test with pytest
       run: |
