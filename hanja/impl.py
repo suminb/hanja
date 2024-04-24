@@ -41,7 +41,12 @@ def split_hanja(text):
 
 
 def is_valid_mode(mode):
-    if mode in ("substitution", "combination-text", "combination-text-reversed", "combination-html"):
+    if mode in (
+        "substitution",
+        "combination-text",
+        "combination-text-reversed",
+        "combination-html",
+    ):
         return True
     elif mode == "combination":
         warnings.warn(
@@ -61,13 +66,13 @@ def get_format_string(mode, word):
         raise ValueError("Unsupported translation mode: " + mode)
 
     if mode == "combination-text" and is_hanja(word[0]):
-        return u"{word}({translated})"
+        return "{word}({translated})"
     elif mode == "combination-text-reversed" and is_hanja(word[0]):
-        return u"{translated}({word})"
+        return "{translated}({word})"
     elif mode in ("combination-html", "combination") and is_hanja(word[0]):
-        return u'<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
+        return '<span class="hanja">{word}</span><span class="hangul">({translated})</span>'
     else:
-        return u"{translated}"
+        return "{translated}"
 
 
 def translate(text, mode):
@@ -88,7 +93,7 @@ def translate_word(word, prev, format_string):
     :param word: Word to be translated
     :param prev: Preceeding word
     """
-    prev_char = prev[-1] if prev else u" "
+    prev_char = prev[-1] if prev else " "
     buf = []
     for c in word:
         new_char = translate_syllable(prev_char, c)
