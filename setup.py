@@ -19,14 +19,14 @@ with open("requirements.txt") as f:
 
 setup(
     name="hanja",
-    py_modules=["hanja/__init__", "hanja.hangul"],
+    py_modules=["hanja", "hanja/__init__", "hanja.hangul"],
     version=hanja.__version__,
     description="Hangul & Hanja library",
     long_description=readme(),
     author=hanja.__author__,
     author_email=hanja.__email__,
     url="https://github.com/suminb/hanja",
-    packages=["", "hanja"],
+    packages=[],
     package_data={"": ["requirements.txt"], "hanja": ["table.yml"]},
     include_package_data=True,
     install_requires=install_requires,

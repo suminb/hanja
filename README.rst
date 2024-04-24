@@ -104,6 +104,11 @@ False
 >>> hanja.translate('大韓民國은 民主共和國이다.', 'combination-text')
 '大韓民國(대한민국)은 民主共和國(민주공화국)이다.'
 
+혼용 모드 변환 version 2 (text):
+
+>>> hanja.translate('大韓民國은 民主共和國이다.', 'combination-text-reversed')
+'대한민국(大韓民國)은 민주공화국(民主共和國)이다.'
+
 혼용 모드 변환 (HTML):
 
 >>> hanja.translate(u'大韓民國은 民主共和國이다.', 'combination-html')
