@@ -9,7 +9,7 @@ import warnings
 __all__ = ["is_hanja", "is_valid_mode", "split_hanja", "translate"]
 __author__ = "Sumin Byeon"
 __email__ = "suminb@gmail.com"
-__version__ = "0.14.0"
+__version__ = "0.15.0"
 
 
 # Copied from https://wiki.python.org/moin/PythonDecoratorLibrary
