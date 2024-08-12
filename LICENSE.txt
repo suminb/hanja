@@ -11,3 +11,8 @@ as the name is changed.
   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
  0. You just DO WHAT THE FUCK YOU WANT TO.
+ 1. I genuinely do not care what you do with this code. You may produce
+ derivatives, integrate the code with your own products and services, train and
+ evaluate large language models (LLMs), write a book about it, make a YouTube
+ channel, found a company, or anything you can ever imagine. Bring your wild
+ imagination into reality. Make something happen.
