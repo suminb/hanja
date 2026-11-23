@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
-from pkg_resources import parse_requirements
 
 import hanja
 
@@ -15,7 +14,11 @@ def readme():
 
 
 with open("requirements.txt") as f:
-    install_requires = [str(x) for x in parse_requirements(f.read())]
+    install_requires = [
+        line.strip()
+        for line in f
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
 
 setup(
     name="hanja",
